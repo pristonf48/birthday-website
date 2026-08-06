@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    background:linear-gradient(45deg,#ff0080,#7928ca,#2afadf,#00f2fe);
+    background-size:400% 400%;
+    animation:bg 10s infinite alternate;
+}
+
+@keyframes bg{
+    0%{background-position:left;}
+    100%{background-position:right;}
+}
+
+.container{
+    position: absolute;
+    padding: 40px;
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.2);
+
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+
+    transition: .15s linear;
+}
+
+h2{
+    color:white;
+    margin-bottom:20px;
+    text-align:center;
+}
+
+input{
+    padding:12px;
+    width:260px;
+    border:none;
+    border-radius:10px;
+    outline:none;
+    font-size:17px;
+    
+}
+
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    font-size:17px;
+    cursor:pointer;
+    color:rgb(183, 217, 12);
+    margin-left:8px;
+    transition:.3s; 
+}
+
+button:hover{
+    transform:scale(1.08);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" id="box">
+    
+
+    <form id="birthdayForm">
+    <input type="text" id="name" name="birthdayName" placeholder="Enter your sweet name" required>
+     <button type="submit" id="btn">Submit</button>
+</form>
+</div>
+
+<script>
+
+const colors=[
+"#ff4b5c",
+"#ff9800",
+"#4caf50",
+"#00bcd4",
+"#3f51b5",
+"#9c27b0",
+"#e91e63",
+"#f44336",
+"#00e676",
+"#2196f3"
+];
+
+let i=0;
+
+setInterval(()=>{
+    document.body.style.background=
+    `linear-gradient(45deg,
+    ${colors[i]},
+    ${colors[(i+1)%colors.length]},
+    ${colors[(i+2)%colors.length]})`;
+
+    document.getElementById("btn").style.background=colors[(i+3)%colors.length];
+
+    i=(i+1)%colors.length;
+},1000);
+
+const box=document.getElementById("box");
+
+document.addEventListener("mousemove",(e)=>{
+
+    let x=(e.clientX-window.innerWidth/2)/20;
+    let y=(e.clientY-window.innerHeight/2)/20;
+
+    box.style.transform=`translate(${x}px,${y}px)`;
+
+});
+
+document.getElementById("birthdayForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+
+    if (name === "") {
+        alert("Please enter your name!");
+        return;
+    }
+
+    localStorage.setItem("birthdayName", name);
+
+    window.location.href = "birthday.html";
+});
+</script>
+
+</body>
+</html>
