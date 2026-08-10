@@ -5,8 +5,85 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday!</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap');
 
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap');
+  @media (max-width: 600px){
+
+    body{
+        overflow-x:hidden;
+        overflow-y:auto;
+        min-height:100vh;
+    }
+
+    .stage{
+        width:100%;
+        min-height:100vh;
+        overflow:hidden;
+    }
+
+    .headline-wrap{
+        top:10%;
+        width:100%;
+        padding:0 15px;
+    }
+
+    .headline{
+        font-size:clamp(42px, 14vw, 65px);
+        line-height:0.9;
+        max-width:100%;
+    }
+
+    .subtitle{
+        font-size:14px;
+        padding:0 20px;
+    }
+
+    .divider{
+        margin-top:8px;
+    }
+
+    /* Make balloons smaller */
+    .balloon-wrap svg{
+        width:70px;
+        height:auto;
+    }
+
+    .balloon-wrap:nth-of-type(2) svg,
+    .balloon-wrap:nth-of-type(4) svg{
+        width:55px;
+    }
+
+    /* Move balloons away from the title */
+    .balloon-wrap{
+        transform:scale(.75);
+    }
+
+    /* Cake */
+    .cake-stage{
+        width:90vw;
+        max-width:420px;
+        bottom:8%;
+    }
+
+    /* Hide side decorations on small screens */
+    .gift,
+    .flowers{
+        display:none;
+    }
+
+    .footer{
+        bottom:2%;
+    }
+
+    .footer-text{
+        font-size:24px;
+    }
+
+    .music-btn{
+        left:15px;
+        bottom:15px;
+    }
+}
   :root{
     --bg-1:#120a1f;
     --bg-2:#1a0f2b;
@@ -24,7 +101,7 @@
   body{
     background:radial-gradient(ellipse at 50% 20%, var(--bg-2) 0%, var(--bg-1) 45%, var(--bg-3) 100%);
     font-family:'Cormorant Garamond', serif;
-    overflow-x:hidden;
+    overflow-x:auto;
     overflow-y:auto;
     width:100%;
     min-height:100vh;
@@ -100,25 +177,39 @@
   /* ---------- headline ---------- */
   .headline-wrap{
     position:absolute;
-    top:5%;
+    top: 6%;
     left:0; right:0;
     text-align:center;
     z-index:5;
   }
   .headline{
     font-family:'Great Vibes', cursive;
-    font-size:clamp(56px, 11vw, 98px);
-    line-height:0.95;
-    margin:0;
-    background:linear-gradient(180deg, #fff6d8 0%, var(--gold-2) 45%, var(--gold-3) 75%, var(--gold-2) 100%);
+    font-size:clamp(38px, 11vw, 98px);
+    line-height:1.05;
+    padding-top:0.9px;
+    margin:0 auto;
+    padding:0 20px;
+
+    background:linear-gradient(
+        180deg,
+        #fff6d8 0%,
+        var(--gold-2) 45%,
+        var(--gold-3) 75%,
+        var(--gold-2) 100%
+    );
+
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
-    filter:drop-shadow(0 0 18px rgba(244,193,78,0.55)) drop-shadow(0 2px 0 rgba(120,70,10,0.4));
-    letter-spacing:1px;
-  }
+
+    filter:
+        drop-shadow(0 0 18px rgba(244,193,78,0.55))
+        drop-shadow(0 2px 0 rgba(120,70,10,0.4));
+
+    letter-spacing:0;
+}
   .subtitle{
-    margin-top:6px;
+    margin-top:10px;
     color:#f5eee0;
     font-size:clamp(13px, 2vw, 17px);
     letter-spacing:0.5px;
@@ -148,7 +239,7 @@
     bottom:6%;
     left:50%;
     transform:translateX(-50%);
-    width:min(56vw, 480px);
+    width:min(90vw, 480px);
     z-index:4;
   }
   .flame{
