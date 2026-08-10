@@ -98,23 +98,37 @@
   /* ---------- headline ---------- */
   .headline-wrap{
     position:absolute;
-    top:10px;
+    top:6%;
     left:0; right:0;
     text-align:center;
     z-index:5;
   }
-  .headline{
+   .headline{
     font-family:'Great Vibes', cursive;
-    font-size:clamp(56px, 11vw, 98px);
-    line-height:0.95;
-    margin:0;
-    background:linear-gradient(180deg, #fff6d8 0%, var(--gold-2) 45%, var(--gold-3) 75%, var(--gold-2) 100%);
+    font-size:clamp(38px, 11vw, 98px);
+    line-height:1.05;
+    padding-top:0.9px;
+    margin:0 auto;
+    padding:0 20px;
+
+    background:linear-gradient(
+        180deg,
+        #fff6d8 0%,
+        var(--gold-2) 45%,
+        var(--gold-3) 75%,
+        var(--gold-2) 100%
+    );
+
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
-    filter:drop-shadow(0 0 18px rgba(244,193,78,0.55)) drop-shadow(0 2px 0 rgba(120,70,10,0.4));
-    letter-spacing:1px;
-  }
+
+    filter:
+        drop-shadow(0 0 18px rgba(244,193,78,0.55))
+        drop-shadow(0 2px 0 rgba(120,70,10,0.4));
+
+    letter-spacing:0;
+}
   .subtitle{
     margin-top:6px;
     color:#f5eee0;
