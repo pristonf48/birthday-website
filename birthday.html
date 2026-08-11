@@ -2,10 +2,94 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday!</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap');
 
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap');
+  @media (max-width: 600px){
+
+    body{
+        overflow-x:hidden;
+        overflow-y:auto;
+        min-height:100vh;
+    }
+
+    .stage{
+        width:100%;
+        min-height:100vh;
+        overflow:hidden;
+    }
+
+    .headline-wrap{
+        top:10%;
+        width:100%;
+        padding:0 15px;
+    }
+
+    .headline{
+        font-size:clamp(42px, 14vw, 65px);
+        line-height:0.9;
+        max-width:100%;
+    }
+
+    .subtitle{
+        font-size:14px;
+        padding:0 20px;
+    }
+
+    .divider{
+        margin-top:8px;
+    }
+
+    /* Make balloons smaller */
+    .balloon-wrap svg{
+        width:70px;
+        height:auto;
+    }
+
+    .balloon-wrap:nth-of-type(2) svg,
+    .balloon-wrap:nth-of-type(4) svg{
+        width:55px;
+    }
+
+    /* Move balloons away from the title */
+    .balloon-wrap{
+        transform:scale(.75);
+    }
+
+    /* Cake */
+    .cake-stage{
+        width:90vw;
+        max-width:420px;
+        bottom:8%;
+    }
+
+    /* Hide side decorations on small screens */
+    .gift,
+    .flowers{
+        display:none;
+    }
+
+    .footer{
+        bottom:9%;
+    }
+
+    .footer-text{
+        font-size:22px;
+    }
+
+    .music-btn{
+        left:15px;
+        bottom:15px;
+    }
+
+    .blow-btn{
+        bottom:2%;
+        font-size:15px;
+        padding:10px 18px;
+    }
+}
   :root{
     --bg-1:#120a1f;
     --bg-2:#1a0f2b;
@@ -23,15 +107,16 @@
   body{
     background:radial-gradient(ellipse at 50% 20%, var(--bg-2) 0%, var(--bg-1) 45%, var(--bg-3) 100%);
     font-family:'Cormorant Garamond', serif;
-    overflow:hidden;
+    overflow-x:auto;
+    overflow-y:auto;
     width:100%;
-    height:100vh;
+    min-height:100vh;
   }
 
   .stage{
-    position:relative;
+   position:relative;
     width:100%;
-    height:100vh;
+    min-height:100vh;
     max-width:900px;
     margin:0 auto;
     overflow:hidden;
@@ -98,12 +183,12 @@
   /* ---------- headline ---------- */
   .headline-wrap{
     position:absolute;
-    top:4%;
+    top: 6%;
     left:0; right:0;
     text-align:center;
     z-index:5;
   }
-   .headline{
+  .headline{
     font-family:'Great Vibes', cursive;
     font-size:clamp(38px, 11vw, 98px);
     line-height:1.05;
@@ -130,7 +215,7 @@
     letter-spacing:0;
 }
   .subtitle{
-    margin-top:6px;
+    margin-top:10px;
     color:#f5eee0;
     font-size:clamp(13px, 2vw, 17px);
     letter-spacing:0.5px;
@@ -160,7 +245,7 @@
     bottom:6%;
     left:50%;
     transform:translateX(-50%);
-    width:min(56vw, 480px);
+    width:min(90vw, 480px);
     z-index:4;
   }
   .flame{
@@ -216,6 +301,139 @@
   @keyframes pulse-ring{
     0%,100%{ box-shadow:0 0 8px rgba(244,193,78,0.35); }
     50%{ box-shadow:0 0 16px rgba(244,193,78,0.7); }
+  }
+
+  /* ---------- blow button ---------- */
+  .blow-btn{
+    position:absolute;
+    left:50%;
+    bottom:1%;
+    transform:translateX(-50%);
+    z-index:7;
+    padding:12px 24px;
+    border-radius:30px;
+    border:1.5px solid var(--gold-2);
+    background:linear-gradient(180deg, rgba(244,193,78,0.25), rgba(10,8,18,0.75));
+    color:#fdf3e3;
+    font-family:'Cormorant Garamond', serif;
+    font-size:17px;
+    font-weight:600;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    box-shadow:0 0 14px rgba(244,193,78,0.4);
+    transition:.4s;
+    -webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);
+  }
+  .blow-btn:hover{ transform:translateX(-50%) scale(1.06); box-shadow:0 0 22px rgba(244,193,78,0.65); }
+  .blow-btn.hidden{ opacity:0; pointer-events:none; transform:translateX(-50%) translateY(10px); }
+
+  /* ---------- blown out flames & smoke ---------- */
+  #candles.blown .flame{
+    opacity:0 !important;
+    transform:scaleY(0) !important;
+    transition:all .5s ease;
+  }
+  .smoke{
+    position:fixed;
+    width:6px; height:6px;
+    border-radius:50%;
+    background:rgba(220,220,220,0.6);
+    pointer-events:none;
+    z-index:9;
+    animation:smoke-rise 1.7s ease-out forwards;
+  }
+  @keyframes smoke-rise{
+    0%{ opacity:0.7; transform:translateY(0) scale(1); }
+    100%{ opacity:0; transform:translateY(-60px) scale(2.6); }
+  }
+
+  /* ---------- knife ---------- */
+  .knife{
+    position:absolute;
+    top:38%;
+    left:50%;
+    width:28px;
+    transform:translate(-50%,-150px) rotate(-20deg);
+    opacity:0;
+    z-index:8;
+    transition:transform .9s cubic-bezier(.6,0,.3,1), opacity .3s ease;
+    filter:drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+  }
+  .knife.cutting{
+    opacity:1;
+    transform:translate(-50%, 50px) rotate(-4deg);
+  }
+  .knife.done{
+    opacity:0;
+    transition:opacity .5s ease;
+  }
+
+  /* ---------- cut mark ---------- */
+  .cut-mark{
+    opacity:0;
+    transition:opacity .6s ease;
+  }
+  .cut-mark.show{ opacity:1; }
+
+  /* ---------- teddy bear overlay ---------- */
+  .teddy-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(5,3,10,0.72);
+    -webkit-backdrop-filter:blur(4px);
+    backdrop-filter:blur(4px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 1s ease;
+    z-index:20;
+    padding:20px;
+  }
+  .teddy-overlay.show{ opacity:1; pointer-events:auto; }
+  .teddy-card{
+    position:relative;
+    width:min(94vw, 520px);
+    transform:scale(0.85) translateY(20px);
+    opacity:0;
+    transition:transform .9s cubic-bezier(.34,1.56,.64,1), opacity .9s ease;
+  }
+  .teddy-overlay.show .teddy-card{
+    transform:scale(1) translateY(0);
+    opacity:1;
+    transition-delay:.2s;
+  }
+  .heart-msg{
+    position:absolute;
+    left:50%;
+    top:63%;
+    transform:translate(-50%,-50%);
+    width:52%;
+    text-align:center;
+    color:#fff5f7;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(12px, 3.4vw, 18px);
+    line-height:1.3;
+    text-shadow:0 1px 3px rgba(0,0,0,0.45);
+  }
+  .teddy-close{
+    position:absolute;
+    top:-12px; right:-6px;
+    width:32px; height:32px;
+    border-radius:50%;
+    border:1.5px solid var(--gold-2);
+    background:rgba(10,8,18,0.85);
+    color:var(--gold-2);
+    font-size:18px;
+    line-height:1;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -397,6 +615,12 @@
       <rect x="180" y="120" width="3" height="8" rx="2" fill="#ff9ecf" transform="rotate(10 180 120)"/>
     </g>
 
+    <!-- cut mark (revealed after the cake is "cut") -->
+    <g id="cutMark" class="cut-mark">
+      <line x1="200" y1="85" x2="200" y2="345" stroke="#fff8e7" stroke-width="2" stroke-dasharray="4 5" opacity="0.85"/>
+      <path d="M200 90 L228 165 L228 253 L200 345" stroke="#fff8e7" stroke-width="2" stroke-dasharray="4 5" fill="none" opacity="0.6"/>
+    </g>
+
     <!-- candles -->
     <g id="candles">
       <!-- 8 candles across the top -->
@@ -439,16 +663,82 @@
     </g>
   </svg>
 
+  <!-- knife (animates in when the candles are blown out) -->
+  <svg id="knife" class="knife" viewBox="0 0 40 160" xmlns="http://www.w3.org/2000/svg">
+    <rect x="14" y="70" width="12" height="70" rx="4" fill="#8a5a34"/>
+    <rect x="16" y="72" width="8" height="66" rx="3" fill="#6b3a1e"/>
+    <path d="M20 0 L34 20 L30 75 L10 75 L6 20 Z" fill="#e8e8e8"/>
+    <path d="M20 4 L30 20 L27 70 L13 70 L10 20 Z" fill="#ffffff"/>
+  </svg>
+
   <!-- music button -->
   <div class="music-btn">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--gold-2)"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
   </div>
+
+  <!-- blow the candles button -->
+  <button class="blow-btn" id="blowBtn">🎂 Blow the Candles</button>
 
   <!-- footer -->
   <div class="footer">
     <div class="footer-text" id="footerText">Today is all about you! <span style="color:#ff6f91;">&#10084;</span></div>
   </div>
 
+</div>
+
+<!-- teddy bear + heart message overlay -->
+<div class="teddy-overlay" id="teddyOverlay">
+  <div class="teddy-card">
+    <button class="teddy-close" id="teddyClose" aria-label="Close">&times;</button>
+    <svg viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block;">
+      <defs>
+        <radialGradient id="furGrad" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#e7c69a"/>
+          <stop offset="100%" stop-color="#c9a06b"/>
+        </radialGradient>
+      </defs>
+      <!-- legs -->
+      <ellipse cx="105" cy="315" rx="38" ry="26" fill="url(#furGrad)"/>
+      <ellipse cx="195" cy="315" rx="38" ry="26" fill="url(#furGrad)"/>
+      <ellipse cx="105" cy="322" rx="20" ry="12" fill="#f2e2c8"/>
+      <ellipse cx="195" cy="322" rx="20" ry="12" fill="#f2e2c8"/>
+      <!-- body -->
+      <ellipse cx="150" cy="250" rx="98" ry="82" fill="url(#furGrad)"/>
+      <!-- arms -->
+      <ellipse cx="70" cy="235" rx="30" ry="46" fill="url(#furGrad)" transform="rotate(18 70 235)"/>
+      <ellipse cx="230" cy="235" rx="30" ry="46" fill="url(#furGrad)" transform="rotate(-18 230 235)"/>
+      <!-- head -->
+      <circle cx="150" cy="112" r="72" fill="url(#furGrad)"/>
+      <!-- ears -->
+      <circle cx="92" cy="58" r="30" fill="url(#furGrad)"/>
+      <circle cx="208" cy="58" r="30" fill="url(#furGrad)"/>
+      <circle cx="92" cy="58" r="15" fill="#f2e2c8"/>
+      <circle cx="208" cy="58" r="15" fill="#f2e2c8"/>
+      <!-- snout -->
+      <ellipse cx="150" cy="132" rx="40" ry="32" fill="#f6ecd8"/>
+      <!-- cheeks -->
+      <ellipse cx="105" cy="120" rx="14" ry="9" fill="#f7a8b8" opacity="0.55"/>
+      <ellipse cx="195" cy="120" rx="14" ry="9" fill="#f7a8b8" opacity="0.55"/>
+      <!-- eyes -->
+      <circle cx="122" cy="100" r="7" fill="#4a2f1a"/>
+      <circle cx="178" cy="100" r="7" fill="#4a2f1a"/>
+      <circle cx="124" cy="98" r="2" fill="#fff"/>
+      <circle cx="180" cy="98" r="2" fill="#fff"/>
+      <!-- nose & mouth -->
+      <ellipse cx="150" cy="120" rx="11" ry="8" fill="#4a2f1a"/>
+      <path d="M150 128 L150 138" stroke="#4a2f1a" stroke-width="2" fill="none"/>
+      <path d="M150 138 Q135 150 122 138" stroke="#4a2f1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M150 138 Q165 150 178 138" stroke="#4a2f1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- heart -->
+      <g>
+        <path d="M150 275 C 108 240 80 205 100 178 C 118 155 148 165 150 190 C 152 165 182 155 200 178 C 220 205 192 240 150 275 Z" fill="#e0304a"/>
+        <path d="M150 275 C 118 246 96 217 106 194 C 116 176 138 182 150 202 Z" fill="#ff5468" opacity="0.55"/>
+        <!-- ribbon -->
+        <path d="M138 168 C130 150 145 140 150 155 C155 140 170 150 162 168" fill="none" stroke="#fff" stroke-width="3" opacity="0.85"/>
+      </g>
+    </svg>
+    <div class="heart-msg" id="heartMsg"></div>
+  </div>
 </div>
 <div>
     <!-- background song plays automatically -->
@@ -502,6 +792,55 @@ document.getElementById("footerText").innerHTML =
   `Today is all about you, ${safeName}! <span style="color:#ff6f91;">&#10084;</span>`;
 
 document.title = `Happy Birthday ${safeName}`;
+
+document.getElementById("heartMsg").textContent =
+  `You make every day brighter, ${safeName}. May this year bring you endless laughter, love, and beautiful moments. Happy Birthday! 🤍`;
+
+  // ---------- blow candles -> cut cake -> reveal teddy bear ----------
+  const blowBtn = document.getElementById('blowBtn');
+  const candlesGroup = document.getElementById('candles');
+  const knife = document.getElementById('knife');
+  const cutMark = document.getElementById('cutMark');
+  const teddyOverlay = document.getElementById('teddyOverlay');
+  const cakeSvg = document.getElementById('cakeSvg');
+
+  function spawnSmoke(){
+    const rect = cakeSvg.getBoundingClientRect();
+    const candleX = [150,168,186,204,222,240,255];
+    candleX.forEach((cx) => {
+      for(let j=0;j<3;j++){
+        const s = document.createElement('div');
+        s.className = 'smoke';
+        const relX = rect.left + (cx/400)*rect.width;
+        const relY = rect.top + (47/380)*rect.height;
+        s.style.left = (relX + (Math.random()*10-5)) + 'px';
+        s.style.top = (relY - Math.random()*18) + 'px';
+        s.style.animationDelay = (j*0.15) + 's';
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 2000);
+      }
+    });
+  }
+
+  if(blowBtn){
+    blowBtn.addEventListener('click', () => {
+      blowBtn.classList.add('hidden');
+      candlesGroup.classList.add('blown');
+      spawnSmoke();
+
+      setTimeout(() => { knife.classList.add('cutting'); }, 500);
+      setTimeout(() => { cutMark.classList.add('show'); }, 1250);
+      setTimeout(() => { knife.classList.add('done'); }, 1650);
+      setTimeout(() => { teddyOverlay.classList.add('show'); }, 2400);
+    });
+  }
+
+  const teddyClose = document.getElementById('teddyClose');
+  if(teddyClose){
+    teddyClose.addEventListener('click', () => {
+      teddyOverlay.classList.remove('show');
+    });
+  }
 
   const music = document.getElementById('bgMusic');
   music.volume = 0.8;
